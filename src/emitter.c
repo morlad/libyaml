@@ -479,12 +479,8 @@ yaml_emitter_state_machine(yaml_emitter_t *emitter, yaml_event_t *event)
         case YAML_EMIT_END_STATE:
             return yaml_emitter_set_emitter_error(emitter,
                     "expected nothing after STREAM-END");
-
-        default:
-            assert(1);      /* Invalid state. */
     }
-
-    return 0;
+    assert(0); /* Invalid state */
 }
 
 /*
@@ -986,8 +982,6 @@ yaml_emitter_emit_node(yaml_emitter_t *emitter, yaml_event_t *event,
             return yaml_emitter_set_emitter_error(emitter,
                     "expected SCALAR, SEQUENCE-START, MAPPING-START, or ALIAS");
     }
-
-    return 0;
 }
 
 /*
