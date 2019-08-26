@@ -1475,7 +1475,7 @@ yaml_parser_load(yaml_parser_t *parser, yaml_document_t *document);
  * the returned value should be @c 0.
  */
 
-typedef int yaml_write_handler_t(void *data, unsigned char *buffer, size_t size);
+typedef int yaml_write_handler_t(void *data, const unsigned char *buffer, size_t size);
 
 /** The emitter states. */
 typedef enum yaml_emitter_state_e {

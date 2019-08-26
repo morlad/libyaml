@@ -63,7 +63,7 @@ yaml_strdup(const yaml_char_t *str)
     if (!str)
         return NULL;
 
-    return (yaml_char_t *)strdup((char *)str);
+    return (yaml_char_t *)strdup((const char *)str);
 }
 
 /*
@@ -417,7 +417,7 @@ yaml_emitter_delete(yaml_emitter_t *emitter)
  */
 
 static int
-yaml_string_write_handler(void *data, unsigned char *buffer, size_t size)
+yaml_string_write_handler(void *data, const unsigned char *buffer, size_t size)
 {
   yaml_emitter_t *emitter = (yaml_emitter_t *)data;
 
@@ -443,7 +443,7 @@ yaml_string_write_handler(void *data, unsigned char *buffer, size_t size)
  */
 
 static int
-yaml_file_write_handler(void *data, unsigned char *buffer, size_t size)
+yaml_file_write_handler(void *data, const unsigned char *buffer, size_t size)
 {
     yaml_emitter_t *emitter = (yaml_emitter_t *)data;
 
@@ -802,7 +802,7 @@ yaml_alias_event_initialize(yaml_event_t *event, const yaml_char_t *anchor)
     assert(event);      /* Non-NULL event object is expected. */
     assert(anchor);     /* Non-NULL anchor is expected. */
 
-    if (!yaml_check_utf8(anchor, strlen((char *)anchor))) return 0;
+    if (!yaml_check_utf8(anchor, strlen((const char *)anchor))) return 0;
 
     anchor_copy = yaml_strdup(anchor);
     if (!anchor_copy)
@@ -833,19 +833,19 @@ yaml_scalar_event_initialize(yaml_event_t *event,
     assert(value);      /* Non-NULL anchor is expected. */
 
     if (anchor) {
-        if (!yaml_check_utf8(anchor, strlen((char *)anchor))) goto error;
+        if (!yaml_check_utf8(anchor, strlen((const char *)anchor))) goto error;
         anchor_copy = yaml_strdup(anchor);
         if (!anchor_copy) goto error;
     }
 
     if (tag) {
-        if (!yaml_check_utf8(tag, strlen((char *)tag))) goto error;
+        if (!yaml_check_utf8(tag, strlen((const char *)tag))) goto error;
         tag_copy = yaml_strdup(tag);
         if (!tag_copy) goto error;
     }
 
     if (length < 0) {
-        length = strlen((char *)value);
+        length = strlen((const char *)value);
     }
 
     if (!yaml_check_utf8(value, length)) goto error;
@@ -883,13 +883,13 @@ yaml_sequence_start_event_initialize(yaml_event_t *event,
     assert(event);      /* Non-NULL event object is expected. */
 
     if (anchor) {
-        if (!yaml_check_utf8(anchor, strlen((char *)anchor))) goto error;
+        if (!yaml_check_utf8(anchor, strlen((const char *)anchor))) goto error;
         anchor_copy = yaml_strdup(anchor);
         if (!anchor_copy) goto error;
     }
 
     if (tag) {
-        if (!yaml_check_utf8(tag, strlen((char *)tag))) goto error;
+        if (!yaml_check_utf8(tag, strlen((const char *)tag))) goto error;
         tag_copy = yaml_strdup(tag);
         if (!tag_copy) goto error;
     }
@@ -938,13 +938,13 @@ yaml_mapping_start_event_initialize(yaml_event_t *event,
     assert(event);      /* Non-NULL event object is expected. */
 
     if (anchor) {
-        if (!yaml_check_utf8(anchor, strlen((char *)anchor))) goto error;
+        if (!yaml_check_utf8(anchor, strlen((const char *)anchor))) goto error;
         anchor_copy = yaml_strdup(anchor);
         if (!anchor_copy) goto error;
     }
 
     if (tag) {
-        if (!yaml_check_utf8(tag, strlen((char *)tag))) goto error;
+        if (!yaml_check_utf8(tag, strlen((const char *)tag))) goto error;
         tag_copy = yaml_strdup(tag);
         if (!tag_copy) goto error;
     }
@@ -1211,12 +1211,12 @@ yaml_document_add_scalar(yaml_document_t *document,
         tag = (yaml_char_t *)YAML_DEFAULT_SCALAR_TAG;
     }
 
-    if (!yaml_check_utf8(tag, strlen((char *)tag))) goto error;
+    if (!yaml_check_utf8(tag, strlen((const char *)tag))) goto error;
     tag_copy = yaml_strdup(tag);
     if (!tag_copy) goto error;
 
     if (length < 0) {
-        length = strlen((char *)value);
+        length = strlen((const char *)value);
     }
 
     if (!yaml_check_utf8(value, length)) goto error;
@@ -1263,7 +1263,7 @@ yaml_document_add_sequence(yaml_document_t *document,
         tag = (yaml_char_t *)YAML_DEFAULT_SEQUENCE_TAG;
     }
 
-    if (!yaml_check_utf8(tag, strlen((char *)tag))) goto error;
+    if (!yaml_check_utf8(tag, strlen((const char *)tag))) goto error;
     tag_copy = yaml_strdup(tag);
     if (!tag_copy) goto error;
 
@@ -1308,7 +1308,7 @@ yaml_document_add_mapping(yaml_document_t *document,
         tag = (yaml_char_t *)YAML_DEFAULT_MAPPING_TAG;
     }
 
-    if (!yaml_check_utf8(tag, strlen((char *)tag))) goto error;
+    if (!yaml_check_utf8(tag, strlen((const char *)tag))) goto error;
     tag_copy = yaml_strdup(tag);
     if (!tag_copy) goto error;
 
