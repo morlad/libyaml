@@ -1,6 +1,8 @@
 
 #include "yaml_private.h"
 
+#ifndef YAML_NO_VERSION_API
+
 /*
  * Get the library version.
  */
@@ -22,6 +24,8 @@ yaml_get_version(int *major, int *minor, int *patch)
     *minor = YAML_VERSION_MINOR;
     *patch = YAML_VERSION_PATCH;
 }
+
+#endif
 
 /*
  * Allocate a dynamic memory block.
