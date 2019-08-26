@@ -623,10 +623,10 @@ yaml_token_delete(yaml_token_t *token)
  */
 
 static int
-yaml_check_utf8(yaml_char_t *start, size_t length)
+yaml_check_utf8(const yaml_char_t *start, size_t length)
 {
-    yaml_char_t *end = start+length;
-    yaml_char_t *pointer = start;
+    const yaml_char_t *end = start+length;
+    const yaml_char_t *pointer = start;
 
     while (pointer < end) {
         unsigned char octet;
@@ -928,7 +928,7 @@ yaml_sequence_end_event_initialize(yaml_event_t *event)
 
 YAML_DECLARE(int)
 yaml_mapping_start_event_initialize(yaml_event_t *event,
-        yaml_char_t *anchor, yaml_char_t *tag, int implicit,
+        const yaml_char_t *anchor, const yaml_char_t *tag, int implicit,
         yaml_mapping_style_t style)
 {
     yaml_mark_t mark = { 0, 0, 0 };

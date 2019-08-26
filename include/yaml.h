@@ -633,7 +633,7 @@ yaml_sequence_end_event_initialize(yaml_event_t *event);
 
 YAML_DECLARE(int)
 yaml_mapping_start_event_initialize(yaml_event_t *event,
-        yaml_char_t *anchor, yaml_char_t *tag, int implicit,
+        const yaml_char_t *anchor, const yaml_char_t *tag, int implicit,
         yaml_mapping_style_t style);
 
 /**
@@ -1858,7 +1858,7 @@ YAML_DECLARE(void)
 yaml_emitter_set_canonical(yaml_emitter_t *emitter, int canonical);
 
 /**
- * Set the intendation increment.
+ * Set the indentation increment.
  *
  * @param[in,out]   emitter     An emitter object.
  * @param[in]       indent      The indentation increment (1 < . < 10).
