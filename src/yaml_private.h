@@ -674,10 +674,14 @@ yaml_queue_extend(void **start, void **head, void **tail, void **end);
 #define SHIM(a) /*@unused@*/ a __attribute__unused__
 
 /* UNUSED_PARAM() marks a shim argument in the body to silence compiler warnings */
-#ifdef __clang__
-#  define UNUSED_PARAM(a) (void)(a);
+#ifndef HASATTRIBUTE_UNUSED
+#  ifdef __clang__
+#    define UNUSED_PARAM(a) (void)(a);
+#  else
+#    define UNUSED_PARAM(a) /*@-noeffect*/if (0) (void)(a)/*@=noeffect*/;
+#  endif
 #else
-#  define UNUSED_PARAM(a) /*@-noeffect*/if (0) (void)(a)/*@=noeffect*/;
+#  define UNUSED_PARAM(a)
 #endif
 
 #define YAML_MALLOC_STATIC(type) (type*)yaml_malloc(sizeof(type))
