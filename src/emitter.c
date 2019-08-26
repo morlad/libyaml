@@ -1841,11 +1841,11 @@ yaml_emitter_write_tag_handle(yaml_emitter_t *emitter,
 
 static int
 yaml_emitter_write_tag_content(yaml_emitter_t *emitter,
-        yaml_char_t *value, size_t length,
+        yaml_char_t *in_value, size_t length,
         int need_whitespace)
 {
     yaml_string_t string;
-    STRING_ASSIGN(string, value, length);
+    STRING_ASSIGN(string, in_value, length);
 
     if (need_whitespace && !emitter->whitespace) {
         if (!PUT(emitter, ' ')) return 0;
@@ -2015,12 +2015,12 @@ yaml_emitter_write_single_quoted_scalar(yaml_emitter_t *emitter,
 
 static int
 yaml_emitter_write_double_quoted_scalar(yaml_emitter_t *emitter,
-        yaml_char_t *value, size_t length, int allow_breaks)
+        yaml_char_t *in_value, size_t length, int allow_breaks)
 {
     yaml_string_t string;
     int spaces = 0;
 
-    STRING_ASSIGN(string, value, length);
+    STRING_ASSIGN(string, in_value, length);
 
     if (!yaml_emitter_write_indicator(emitter, "\"", 1, 0, 0))
         return 0;
